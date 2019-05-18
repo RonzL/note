@@ -1,0 +1,89 @@
+********************************************
+一、配置git用户名和邮箱
+二、本地创建一个保存git项目的文件夹
+三、和服务器同步
+四、常用命令
+五、更新文件到github完整流程
+六、删除github文件/文件夹流程
+********************************************
+
+注：命令行下输入 sh 进入git bash
+
+
+--------------------------------------------
+一、配置Git用户名和邮箱
+--------------------------------------------
+git bash下：
+	$git config --global user.name “yourname”		配置用户名
+	$git config --global user.email “youremail”		配置邮箱
+	$git config --list								查看当前所有配置
+	
+	注：yourname 是github用户名，youremail是github注册邮箱
+
+
+--------------------------------------------
+二、本地创建一个保存git项目的文件夹
+--------------------------------------------
+找到对应目录:
+	$mkdir git_repository   			新建了一个名为git_repository的文件夹
+	$git init							初始化
+	$git add filename					添加文件到暂存区域
+	$git commit -m “备注信息”			提交文件到git仓库
+	$git status							查看当前文件状态
+	$git diff							查看修改部分
+
+
+-------------------------------------------
+三、和服务器同步
+-------------------------------------------
+1.生成ssh密钥:
+	$cd ~/.ssh							转到c:/用户/用户名/.ssh文件夹
+	$ssh-keygen -C “email” -t rsa 		生成ssh密钥
+	手动将密钥复制粘贴至github
+
+2.连接github服务器:
+	$ssh -T git@github.com	
+
+3.将服务器上项目同步到本地仓库:
+	3.1.同步整个项目到本地
+		$git clone 	[所要同步的github项目的网址]
+	
+	3.2.只获取本地没有的文件					
+		$git remote add origin [所要同步的github项目的网址.git]	
+		$git fetch origin				提取到缓存区	
+		$git merge origin/master		合并分支
+		Or
+		$git pull origin master			一步到位，等价上两条命令效果
+
+4.将本地项目同步到github服务器
+	$git push origin master				master指的是github上的项目主分支
+
+	
+------------------------------------------	
+四、常用命令
+------------------------------------------
+	$git help					查看帮助
+	$git help config			查看配置命令
+	$git log					查看历史日志
+	$git branch -a				查看当前所有分支
+	$git branch -d	[分支名]	删除某个分支
+	$git checkout [分支名]		切换到某个分支
+	$touch [文件名]				本地新建一个空白文件
+	$git add .文件后缀			将当前目录所有.文件后缀的文件加入缓存区
+
+	
+-----------------------------------------
+五、更新文件到github完整流程
+-----------------------------------------
+	1.	$git add filename/dirname
+	2.	$git commit -m “something”
+	3.	$git pull origin master
+	4.	$git push origin master
+
+
+-----------------------------------------
+六、删除github文件/文件夹流程
+-----------------------------------------
+	1.	$git pull origin master						拉取仓库
+	2.	$dir										查看目录、文件
+	3.	$git rm -rf --cached filename/dirname		删除文件/目录
